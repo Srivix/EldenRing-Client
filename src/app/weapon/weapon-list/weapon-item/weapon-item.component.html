@@ -7,9 +7,13 @@
             <div class="title">{{weapon.name}}</div>
             <div class="properties">
                 <div *ngIf="weapon.weaponType!=null"><i>Tipo de arma: </i>{{weapon.weaponType.name}}</div>
-                <div><i>Destreza Req: </i>{{weapon.dexreq}}</div>
-                <div><i>Fuerza Req: </i>{{weapon.strengreq}}</div>
-                <div><i>Intelecto Req: </i>{{weapon.intreq}}</div>
+                <div>Requerimientos: </div>
+                <div *ngIf="weapon.dexreq!=0"><i>- Destreza: </i>{{weapon.dexreq}}</div>
+                <div *ngIf="weapon.strengreq!=0"><i>- Fuerza: </i>{{weapon.strengreq}}</div>
+                <div *ngIf="weapon.intreq!=0"><i>- Intelecto: </i>{{weapon.intreq}}</div>
+                <div *ngIf="weapon.faithreq!=0"><i>- Fe : </i>{{weapon.faithreq}}</div>
+                <div *ngIf="weapon.arcanereq!=0"><i>- Arcano: </i>{{weapon.arcanereq}}</div>
+                <div><i>Peso: </i>{{weapon.weight}}</div>
             </div>
         </div>
     </mat-card>

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { WeaponModule } from './weapon/weapon.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { WeaponModule } from './weapon/weapon.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
-    WeaponModule
+    WeaponModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

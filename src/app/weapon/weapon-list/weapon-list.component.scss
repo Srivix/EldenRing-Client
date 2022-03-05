@@ -1,21 +1,12 @@
 .container {
   margin: 20px;
-
+  text-align: center;
   .filters {
       display: flex;
-
+      justify-content: space-around;
       mat-form-field {
           width: 300px;
           margin-right: 20px;
-      }
-
-      .buttons {
-          flex: auto;
-          align-self: center;
-
-          button {
-              margin-left: 15px;
-          }
       }
   }
 
@@ -27,14 +18,13 @@
       flex-flow: wrap;
       overflow: auto;  
   }
-
-  .buttons {
-      text-align: right;
+  button{
+    background-color: rgb(26, 24, 24);
   }
 }
 
-button {
-  width: 125px;
+.mat-form-field{
+    color: white;
 }
 
   

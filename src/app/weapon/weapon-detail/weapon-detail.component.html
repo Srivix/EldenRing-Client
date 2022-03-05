@@ -1,0 +1,39 @@
+<mat-dialog-content>
+    <div class="container">
+        <h1>{{weapon.name}}</h1>
+        <div class="photo">
+            <img src="http://localhost:8080/weapon/uploads/img/{{weapon.photo}}">
+        </div>
+        <div class="detail">
+            <div class="properties">
+                <div class="property">
+                    <h3 *ngIf="weapon.weaponType!=null">{{weapon.weaponType.name}}</h3>
+                </div>
+                <div class="property">
+                    <h3>Requerimientos: </h3>
+                    <div *ngIf="weapon.dexreq!=0"><i>- Destreza: </i>{{weapon.dexreq}}</div>
+                    <div *ngIf="weapon.strengreq!=0"><i>- Fuerza: </i>{{weapon.strengreq}}</div>
+                    <div *ngIf="weapon.intreq!=0"><i>- Intelecto: </i>{{weapon.intreq}}</div>
+                    <div *ngIf="weapon.faithreq!=0"><i>- Fe : </i>{{weapon.faithreq}}</div>
+                    <div *ngIf="weapon.arcanereq!=0"><i>- Arcano: </i>{{weapon.arcanereq}}</div>
+                </div>
+                <div class="property">
+                    <h3>Escalado: </h3>
+                    <div *ngIf="weapon.dexscaling!='-'"><i>- Destreza: </i>{{weapon.dexscaling}}</div>
+                    <div *ngIf="weapon.strengscaling!='-'"><i>- Fuerza: </i>{{weapon.strengscaling}}</div>
+                    <div *ngIf="weapon.intscaling!='-'"><i>- Intelecto: </i>{{weapon.intscaling}}</div>
+                    <div *ngIf="weapon.faithscaling!='-'"><i>- Fe : </i>{{weapon.faithscaling}}</div>
+                    <div *ngIf="weapon.arcanescaling!='-'"><i>- Arcano: </i>{{weapon.arcanescaling}}</div>
+                </div>
+                <div class="property">
+                    <h3>Descripción: </h3>
+                    <div>{{weapon.description}}</div>
+                </div>
+                <div class="property">
+                    <h3>Peso: </h3>
+                    <div>{{weapon.weight}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>

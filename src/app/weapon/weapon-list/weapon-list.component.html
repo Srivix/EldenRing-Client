@@ -1,61 +1,23 @@
 <div class="container">
     <h1>Listado de Armas</h1>
+    <div class="filters">
+        <form>
+            <mat-form-field>
+                <mat-label for="search-text">Buscar nombre: </mat-label>
+                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
+            </mat-form-field>
 
+            <mat-form-field>
+                <mat-label for="type"> Tipo de arma: </mat-label>
+                <mat-select disableRipple [(ngModel)]="filterType" name="WeaponType">
+                    <mat-option *ngFor="let type of weaponTypes" [value]="type">{{type.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
+        </form>
+    </div>
     <div class="weapon-list">
-        <app-weapon-item *ngFor="let weapon of weapons; let i = index;" [weapon]="weapon">
+        <app-weapon-item *ngFor="let weapon of weapons | appFilterText: searchText | appFilterType: filterType" [weapon]="weapon" (click)="openDetail(weapon)">
         </app-weapon-item>
     </div>
-<!--
-    <mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="foto">
-            <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>
-            <mat-cell *matCellDef="let element"> <img src="http://localhost:8080/weapon/uploads/img/{{element.photo}}" alt="{{element.foto}}" width="128px"> </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> Identificador </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Nombre Arma  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="weaponType">
-            <mat-header-cell *matHeaderCellDef> Tipo de arma  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.weaponType.name}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="dexreq">
-            <mat-header-cell *matHeaderCellDef> Destreza Requerida  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.dexreq}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="strengreq">
-            <mat-header-cell *matHeaderCellDef> Fuerza Requerida  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.strengreq}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="intreq">
-            <mat-header-cell *matHeaderCellDef> Intelecto Requerido  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.intreq}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let element">
-                <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
-                <button mat-icon-button color="accent"><mat-icon>clear</mat-icon></button>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-    <div class="buttons">
-        <button mat-flat-button color="primary">Nueva arma</button>
-    </div>  
-    --> 
 </div>
