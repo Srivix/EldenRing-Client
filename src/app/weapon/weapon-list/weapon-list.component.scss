@@ -1,6 +1,10 @@
 .container {
   margin: 20px;
   text-align: center;
+  h1{
+    font-weight: bold;
+    color: goldenrod;
+  }
   .filters {
       display: flex;
       justify-content: space-around;
@@ -13,7 +17,10 @@
   .weapon-list { 
       margin-top: 20px;
       margin-bottom: 20px;
-
+      margin-left: 8%;
+      margin-right: 8%;
+      height:calc(100vh - 400px);
+      justify-content: center;
       display: flex;
       flex-flow: wrap;
       overflow: auto;  
@@ -23,8 +30,9 @@
   }
 }
 
-.mat-form-field{
-    color: white;
+::-webkit-scrollbar {
+  width: 8px;     /* Tamaño del scroll en vertical */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+  display: none;
 }
-
   

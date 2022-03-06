@@ -35,8 +35,12 @@ $EldenRing-Client-theme: mat.define-dark-theme((
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: rgb(138, 126, 126);}
+html, body { height: 100%; width: 100%;}
+body {
+   margin: 0;
+   font-family: Roboto, "Helvetica Neue", sans-serif; 
+   width: 100%;
+}
 .mat-dialog-container{
     background-color: #161515;
 }
