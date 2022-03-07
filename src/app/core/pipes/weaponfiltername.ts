@@ -21,7 +21,7 @@ export class FilterNamePipe implements PipeTransform {
     searchText = searchText.toLocaleLowerCase();
 
     return weapons.filter(weapon => {
-      return weapon.name?.toLocaleLowerCase().includes(searchText);
+      return weapon.name.toLocaleLowerCase().includes(searchText);
     });
   }
 }

@@ -1,4 +1,4 @@
 export class WeaponType {
-    id: number | undefined;
+    id: number = 0;
     name: string ='';
 }
