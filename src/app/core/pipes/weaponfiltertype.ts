@@ -21,7 +21,7 @@ export class FilterTypePipe implements PipeTransform {
     }
 
     return weapons.filter(weapon => {
-        return weapon.weaponType?.name?.includes(searchType.name);
+        return weapon.weaponType.name.includes(searchType.name);
     });
   }
 }

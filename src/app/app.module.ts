@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { WeaponModule } from './weapon/weapon.module';
 import { HttpClientModule } from '@angular/common/http';
+import { BuildModule } from './build/build.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     CoreModule,
     WeaponModule,
-    HttpClientModule
+    HttpClientModule,
+    BuildModule
   ],
   providers: [],
   bootstrap: [AppComponent]

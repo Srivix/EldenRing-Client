@@ -1,0 +1,62 @@
+<div class="container">
+    <h1>Listado de builds</h1>
+
+    <mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef> Nombre Build  </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="text"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="level">
+            <mat-header-cell *matHeaderCellDef> Nivel  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dexterity">
+            <mat-header-cell *matHeaderCellDef> Destreza  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.dexterity}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="strength">
+            <mat-header-cell *matHeaderCellDef> Fuerza  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.strength}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="intelect">
+            <mat-header-cell *matHeaderCellDef> Inteligencia  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.intelect}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="faith">
+            <mat-header-cell *matHeaderCellDef> Fe  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.faith}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="arcane">
+            <mat-header-cell *matHeaderCellDef> Arcano  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.arcane}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="weapon1">
+            <mat-header-cell *matHeaderCellDef> Arma 1  </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="text">
+                <div *ngIf="element.weapon1!=null">{{element.weapon1.name}}</div>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="weapon2">
+            <mat-header-cell *matHeaderCellDef> Arma 2  </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="text"> 
+                <div *ngIf="element.weapon2!=null">{{element.weapon2.name}}</div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <div class="buttons">
+        <button mat-flat-button color="primary">Nueva Build</button>
+    </div>   
+</div>

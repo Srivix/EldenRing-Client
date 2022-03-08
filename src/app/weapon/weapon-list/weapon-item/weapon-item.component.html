@@ -1,4 +1,4 @@
-<div class="container" *ngIf="weapon!=null">
+<div class="container">
     <mat-card class="mat-elevation-z8">
         <div class="photo">
             <img src="http://localhost:8080/weapon/uploads/img/{{weapon.photo}}">
@@ -6,7 +6,7 @@
         <div class="detail">
             <div class="title">{{weapon.name}}</div>
             <div class="properties">
-                <div *ngIf="weapon.weaponType!=null"><i>Tipo de arma: </i>{{weapon.weaponType.name}}</div>
+                <div><i>Tipo de arma: </i>{{weapon.weaponType.name}}</div>
                 <div>Requerimientos: </div>
                 <div *ngIf="weapon.dexreq!=0"><i>- Destreza: </i>{{weapon.dexreq}}</div>
                 <div *ngIf="weapon.strengreq!=0"><i>- Fuerza: </i>{{weapon.strengreq}}</div>

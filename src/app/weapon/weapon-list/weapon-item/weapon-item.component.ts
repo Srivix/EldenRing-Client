@@ -8,7 +8,7 @@ import { Weapon } from '../../model/Weapon';
 })
 export class WeaponItemComponent implements OnInit {
 
-  @Input() weapon: Weapon | undefined;
+  @Input() weapon: Weapon = new Weapon;
 
   constructor() { }
 
