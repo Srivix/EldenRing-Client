@@ -1,3 +1,4 @@
+import { User } from "src/app/login/model/User";
 import { Weapon } from "src/app/weapon/model/Weapon";
 import { BuildClass } from "./BuildClass";
 
@@ -19,4 +20,7 @@ export class Build{
     arcane: number = 0;
     weapon1: Weapon = new Weapon;
     weapon2: Weapon = new Weapon;
+    createdby: User = new User;
+    created: Date = new Date('');
+    state: number = 0;
 }

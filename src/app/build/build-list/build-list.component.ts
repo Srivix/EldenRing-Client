@@ -17,7 +17,7 @@ export class BuildListComponent implements OnInit {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Build>();
-  displayedColumns: string[] = ['name', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2'];
+  displayedColumns: string[] = ['name', 'createdby', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created', 'state'];
 
   builds: Build[] = [];
 

@@ -8,6 +8,11 @@
             <mat-cell *matCellDef="let element" class="text"> {{element.name}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="createdby">
+            <mat-header-cell *matHeaderCellDef> Creador </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.createdby.username}} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="level">
             <mat-header-cell *matHeaderCellDef> Nivel  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
@@ -24,7 +29,7 @@
         </ng-container>
 
         <ng-container matColumnDef="intelect">
-            <mat-header-cell *matHeaderCellDef> Inteligencia  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Intelecto  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.intelect}} </mat-cell>
         </ng-container>
 
@@ -50,6 +55,16 @@
             <mat-cell *matCellDef="let element" class="text"> 
                 <div *ngIf="element.weapon2!=null">{{element.weapon2.name}}</div>
             </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="created">
+            <mat-header-cell *matHeaderCellDef> Creación  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.created}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef> Estado  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
