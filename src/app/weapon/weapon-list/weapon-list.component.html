@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Listado de Armas</h1>
-    <div class="filters">
-        <form>
+    <form>
+        <div class="filters">
             <mat-form-field>
                 <mat-label for="search-text">Buscar nombre: </mat-label>
                 <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
@@ -14,8 +14,8 @@
                 </mat-select>
             </mat-form-field>
             <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
-        </form>
-    </div>
+        </div>
+    </form>
     <div class="weapon-list">
         <app-weapon-item *ngFor="let weapon of weapons | appFilterText: searchText | appFilterType: filterType" [weapon]="weapon" (click)="openDetail(weapon)">
         </app-weapon-item>

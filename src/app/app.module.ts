@@ -20,7 +20,7 @@ import { BuildModule } from './build/build.module';
     CoreModule,
     WeaponModule,
     HttpClientModule,
-    BuildModule
+    BuildModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

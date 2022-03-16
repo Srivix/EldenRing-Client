@@ -1,77 +1,101 @@
 <div class="container">
     <h1>Listado de builds</h1>
-
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
+    <form>
+        <div class="filters">
+            <mat-form-field>
+                <mat-label for="search-text">Buscar nombre: </mat-label>
+                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label for="search-text">Buscar creador: </mat-label>
+                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label for="search-text">Buscar arma 1: </mat-label>
+                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label for="search-text">Buscar arma 2: </mat-label>
+                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
+            </mat-form-field>
+            <div class="buttons">
+                <button mat-raised-button >Buscar</button>
+                <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
+            </div>
+        </div>
+    </form>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortPage($event)">
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Nombre Build  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="name"> Nombre Build  </mat-header-cell>
             <mat-cell *matCellDef="let element" class="text"> {{element.name}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="createdby">
-            <mat-header-cell *matHeaderCellDef> Creador </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="createdby"> Creador </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.createdby.username}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="level">
-            <mat-header-cell *matHeaderCellDef> Nivel  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="level"> Nivel  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.level}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="dexterity">
-            <mat-header-cell *matHeaderCellDef> Destreza  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="dexterity"> Destreza  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.dexterity}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="strength">
-            <mat-header-cell *matHeaderCellDef> Fuerza  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="strength"> Fuerza  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.strength}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="intelect">
-            <mat-header-cell *matHeaderCellDef> Intelecto  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="intelect"> Intelecto  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.intelect}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="faith">
-            <mat-header-cell *matHeaderCellDef> Fe  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="faith"> Fe  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.faith}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="arcane">
-            <mat-header-cell *matHeaderCellDef> Arcano  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="arcane"> Arcano  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.arcane}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="weapon1">
-            <mat-header-cell *matHeaderCellDef> Arma 1  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="weapon1"> Arma 1  </mat-header-cell>
             <mat-cell *matCellDef="let element" class="text">
                 <div *ngIf="element.weapon1!=null">{{element.weapon1.name}}</div>
+                <div *ngIf="element.weapon1==null">-</div>
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="weapon2">
-            <mat-header-cell *matHeaderCellDef> Arma 2  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="weapon2"> Arma 2  </mat-header-cell>
             <mat-cell *matCellDef="let element" class="text"> 
                 <div *ngIf="element.weapon2!=null">{{element.weapon2.name}}</div>
+                <div *ngIf="element.weapon2==null">-</div>
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="created">
-            <mat-header-cell *matHeaderCellDef> Creación  </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="created"> Creación  </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.created}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="state">
-            <mat-header-cell *matHeaderCellDef> Estado  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="state"> Estado  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.state.name}} </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
-    <mat-paginator (page)="loadPage($event)" [pageSizeOptions]="[1, 2, 5, 10, 15]" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons></mat-paginator>
+    <mat-paginator (page)="loadPage($event)" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons hidePageSize class="mat-elevation-z8"></mat-paginator>
 
     <div class="buttons">
         <button mat-flat-button color="accent" class="mat-elevation-z8">Nueva Build</button>

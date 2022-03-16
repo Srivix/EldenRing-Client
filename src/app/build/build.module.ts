@@ -8,16 +8,18 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
+import { MatSortModule } from '@angular/material/sort';
+import { CustomMatPaginatorIntl } from '../core/paginator/CustomPaginator';
 
 
 
 @NgModule({
   declarations: [
-    BuildListComponent
+    BuildListComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,13 @@ import { MatCardModule } from '@angular/material/card';
     MatOptionModule,
     MatSelectModule,
     MatCardModule,
+    MatSortModule,
+  ],
+  providers: [
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomMatPaginatorIntl
+    }
   ]
 })
 export class BuildModule { }
