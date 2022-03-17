@@ -8,6 +8,9 @@ import { CoreModule } from './core/core.module';
 import { WeaponModule } from './weapon/weapon.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BuildModule } from './build/build.module';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es'
+registerLocaleData(localeEs,'es');
 
 @NgModule({
   declarations: [

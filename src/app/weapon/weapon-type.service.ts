@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { WeaponType } from './model/WeaponType';
 
 @Injectable({
@@ -8,11 +9,13 @@ import { WeaponType } from './model/WeaponType';
 })
 export class WeaponTypeService {
 
+  url: string = environment.server+'/weaponType';
+
   constructor(
     private http: HttpClient
   ) { }
 
   getWeaponTypes(): Observable<WeaponType[]>{
-    return this.http.get<WeaponType[]>('http://localhost:8080/weaponType');
+    return this.http.get<WeaponType[]>(this.url);
   }
 }

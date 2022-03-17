@@ -2,25 +2,43 @@
     <h1>Listado de builds</h1>
     <form>
         <div class="filters">
-            <mat-form-field>
-                <mat-label for="search-text">Buscar nombre: </mat-label>
-                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label for="search-text">Buscar creador: </mat-label>
-                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label for="search-text">Buscar arma 1: </mat-label>
-                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label for="search-text">Buscar arma 2: </mat-label>
-                <input color="primary" type="text" matInput name="search-text" [(ngModel)]="searchText">
-            </mat-form-field>
-            <div class="buttons">
-                <button mat-raised-button >Buscar</button>
-                <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
+            <div class="filafiltro">
+                <mat-form-field>
+                    <mat-label for="filterName">Buscar nombre: </mat-label>
+                    <input color="primary" type="text" matInput name="filterName" [(ngModel)]="filterName">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label for="filterUsername">Buscar creador: </mat-label>
+                    <input color="primary" type="text" matInput name="filterUsername" [(ngModel)]="filterUsername">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label for="filterWeapon1name">Buscar arma 1: </mat-label>
+                    <input color="primary" type="text" matInput name="filterWeapon1name" [(ngModel)]="filterWeapon1name">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label for="filterWeapon2name">Buscar arma 2: </mat-label>
+                    <input color="primary" type="text" matInput name="filterWeapon2name" [(ngModel)]="filterWeapon2name">
+                </mat-form-field>
+            </div>
+            <div class="filafiltro">
+                <div class="datepickers">
+                    <mat-form-field appearance="fill" class="date">
+                        <mat-label>Después de:</mat-label>
+                        <input matInput [matDatepicker]="picker" [formControl]="filterStartDate" [max]="filterEndDate.value">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="date">
+                        <mat-label>Antes de:</mat-label>
+                        <input matInput [matDatepicker]="picker2" [formControl]="filterEndDate" [min]="filterStartDate.value">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="buttons">
+                    <button mat-raised-button (click)="onSearch()">Buscar</button>
+                    <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
+                </div>
             </div>
         </div>
     </form>
@@ -83,7 +101,7 @@
 
         <ng-container matColumnDef="created">
             <mat-header-cell *matHeaderCellDef  mat-sort-header="created"> Creación  </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.created}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.created | date: 'dd-MM-yyyy'}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="state">

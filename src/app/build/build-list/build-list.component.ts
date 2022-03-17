@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,20 +13,32 @@ import { Build } from '../model/Build';
   styleUrls: ['./build-list.component.scss']
 })
 export class BuildListComponent implements OnInit {
-    
-  searchText: string = '';
 
   property: string = 'id';
   direction: string = 'asc';
 
   pageNumber: number = 0;
-  pageSize: number = 9;
+  pageSize: number = 13;
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Build>();
   displayedColumns: string[] = ['name', 'createdby', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created', 'state'];
 
   builds: Build[] = [];
+
+  filterUsername: string = '';
+  filterName: string = '';
+  filterWeapon1name: string |null | undefined;
+  filterWeapon2name: string |null | undefined;
+  filterStartDate: FormControl = new FormControl;
+  filterEndDate: FormControl = new FormControl;
+
+  username: string = '';
+  name: string = '';
+  weapon1name: string |null | undefined;
+  weapon2name: string |null | undefined;
+  startDate: FormControl = new FormControl(null);
+  endDate: FormControl = new FormControl(null);
 
   constructor(
     private buildService: BuildService,
@@ -51,7 +64,7 @@ export class BuildListComponent implements OnInit {
         pageable.pageNumber = event.pageIndex;
     }
 
-    this.buildService.getBuilds(pageable).subscribe(data => {
+    this.buildService.getBuilds(pageable, this.username, this.name, this.weapon1name, this.weapon2name, this.startDate.value, this.endDate.value).subscribe(data => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;
         this.pageSize = data.pageable.pageSize;
@@ -116,7 +129,32 @@ export class BuildListComponent implements OnInit {
   }
 
   onCleanFilter(){
-    this.searchText = '';
+    this.filterName = '';
+    this.filterUsername = '';
+    this.filterWeapon1name = null;
+    this.filterWeapon2name = null;
+    this.filterStartDate = new FormControl(null);
+    this.filterEndDate = new FormControl(null);
+
+    this.onSearch();
+  }
+
+  onSearch(): void{
+
+    if(!this.filterWeapon1name)
+      this.filterWeapon1name = null;
+
+    if(!this.filterWeapon2name)
+      this.filterWeapon2name = null;
+
+    this.name = this.filterName;
+    this.username = this.filterUsername;
+    this.weapon1name = this.filterWeapon1name;
+    this.weapon2name = this.filterWeapon2name;
+    this.startDate = this.filterStartDate;
+    this.endDate = this.filterEndDate;
+
+    this.loadPage();
   }
 
 }
