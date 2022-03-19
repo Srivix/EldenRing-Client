@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BuildModule } from './build/build.module';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es'
+import { LoginModule } from './login/login.module';
 registerLocaleData(localeEs,'es');
 
 @NgModule({
@@ -24,6 +25,7 @@ registerLocaleData(localeEs,'es');
     WeaponModule,
     HttpClientModule,
     BuildModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]

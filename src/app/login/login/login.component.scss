@@ -1,0 +1,53 @@
+.container {
+    width: 350px;
+    height: 370px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    h1{
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom:20px;
+        align-items: center;
+
+        mat-form-field{
+            width: 180px;
+        }
+    }
+
+    .buttons {
+      text-align: center;
+
+      button {
+          margin: 10px;
+          width: 150px;
+      }
+    }
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+   }
+  
+   ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: white !important;
+  } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: white !important;;
+  }
+
+  @media screen and(max-width: 500px) {
+      .container{
+          width: 170px;
+      }
+  }

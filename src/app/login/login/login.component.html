@@ -1,1 +1,28 @@
-<p>login works!</p>
+<mat-dialog-content>
+    <div class="container">
+        <h1 *ngIf="registering==false">Iniciar Sesión</h1>
+        <h1 *ngIf="registering==true">Registrarse</h1>
+        <form>
+            <mat-form-field *ngIf="registering==true">
+                <mat-label>Mail</mat-label>
+                <input type="text" matInput placeholder="Usuario" [(ngModel)]="user.email" name="username" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <input type="text" matInput placeholder="Usuario" [(ngModel)]="user.username" name="username" required>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Password" [(ngModel)]="user.password" name="password" required>
+            </mat-form-field>
+        </form>
+        <div class="buttons">
+            <button *ngIf="registering==false" mat-stroked-button (click)="login()" [disabled]="user.username == '' || user.password == ''">Iniciar Sesión</button>
+            <button *ngIf="registering==false" mat-stroked-button (click)="ngOnInit(true)">Registrarse</button>
+            <button *ngIf="registering==true" mat-stroked-button (click)="register()" [disabled]="user.username == '' || user.password == '' || user.email == ''">Registrarse</button>
+            <button *ngIf="registering==true" mat-stroked-button (click)="ngOnInit(false)">Iniciar Sesión</button>
+        </div>
+    </div>
+</mat-dialog-content>
