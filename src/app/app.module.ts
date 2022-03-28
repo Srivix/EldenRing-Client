@@ -11,6 +11,7 @@ import { BuildModule } from './build/build.module';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es'
 import { LoginModule } from './login/login.module';
+import { CalculatorModule } from './calculator/calculator.module';
 registerLocaleData(localeEs,'es');
 
 @NgModule({
@@ -25,7 +26,8 @@ registerLocaleData(localeEs,'es');
     WeaponModule,
     HttpClientModule,
     BuildModule,
-    LoginModule
+    LoginModule,
+    CalculatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

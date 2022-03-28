@@ -65,4 +65,8 @@ export class BuildService {
     return this.http.get<Build[]>(this.url);
   }
 
+  saveBuild(build: Build): Observable<Build>{
+    return this.http.put<Build>(this.url, build);
+  }
+
 }

@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="name">
+        <label for="name">Nombre build: </label>
+        <input type="text" name="name" [(ngModel)]="name">
+    </div>
+    <div>
+        <label for="selectClass">Clase: </label>
+        <select name="selectClass" id="" [(ngModel)]="build.buildclass" (ngModelChange) = "changeClass()">
+            <option *ngFor="let buildclass of buildclasses" [ngValue]="buildclass">{{buildclass.name}}</option>
+        </select>
+    </div>
+    <div class="atributes">
+        <div>
+            <label for="level">Nivel: </label>
+            <input color="primary" type="text" name="level"  disabled="true" [(ngModel)]="build.level">
+        </div>
+        <div>
+            <label for="dexterity">Destreza: </label>
+            <input color="primary" type="text" name="dexterity" disabled="true" [(ngModel)]="build.dexterity">
+            <button [disabled] ="build.dexterity == build.buildclass.dexterity" (click)="putOffDex()">-</button>
+            <button [disabled] ="build.dexterity >= 99" (click)="addDex()">+</button>
+        </div>
+        <div>
+            <label for="strength">Fuerza: </label>
+            <input color="primary" type="text" name="strength" disabled="true" [(ngModel)]="build.strength">
+            <button [disabled] ="build.strength == build.buildclass.strength" (click)="putOffStreng()">-</button>
+            <button [disabled] ="build.strength >= 99" (click)="addStreng()">+</button>
+        </div>
+        <div>
+            <label for="intelect">Intelecto: </label>
+            <input color="primary" type="text" name="intelect" disabled="true" [(ngModel)]="build.intelect">
+            <button [disabled] ="build.intelect == build.buildclass.intelect" (click)="putOffInt()">-</button>
+            <button [disabled] ="build.intelect >= 99" (click)="addInt()">+</button>
+        </div>
+        <div>
+            <label for="faith">Fe: </label>
+            <input color="primary" type="text" name="faith" disabled="true" [(ngModel)]="build.faith">
+            <button [disabled] ="build.faith == build.buildclass.faith" (click)="putOffFaith()">-</button>
+            <button [disabled] ="build.faith >= 99" (click)="addFaith()">+</button>
+        </div>
+        <div>
+            <label for="arcane">Arcano: </label>
+            <input color="primary" type="text" name="arcane" disabled="true" [(ngModel)]="build.arcane">
+            <button [disabled] ="build.arcane == build.buildclass.arcane" (click)="putOffArc()">-</button>
+            <button [disabled] ="build.arcane >= 99" (click)="addArc()">+</button>
+        </div>
+    </div>
+    <div class="weapons">
+        <div>
+            <label for="selectWeapon1">Arma 1: </label>
+            <select name="selectWeapon1" [(ngModel)]="build.weapon1">
+                <ng-container *ngFor="let weapon of weapons">
+                    <option *ngIf="weapon.dexreq<=build.dexterity && weapon.strengreq<=build.strength  && weapon.intreq<=build.intelect  && weapon.faithreq<=build.faith && weapon.arcanereq<=build.arcane" [ngValue]="weapon">{{weapon.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div>
+            <label for="selectWeapon2">Arma 2: </label>
+            <select name="selectWeapon2" [(ngModel)]="build.weapon2">
+                <ng-container *ngFor="let weapon of weapons">
+                    <option *ngIf="weapon.dexreq<=build.dexterity && weapon.strengreq<=build.strength  && weapon.intreq<=build.intelect  && weapon.faithreq<=build.faith && weapon.arcanereq<=build.arcane" [ngValue]="weapon">{{weapon.name}}</option>
+                </ng-container>
+            </select>
+        </div>
+    </div>
+    <div>
+        <button (click)="onSave()">Guardar Build</button>
+    </div>
+</div>
