@@ -6,14 +6,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Pageable } from 'src/app/core/model/page/Pageable';
 import { BuildService } from '../build.service';
 import { Build } from '../model/Build';
+import { BuildState } from '../model/BuildState';
 
 @Component({
-  selector: 'app-build-list',
-  templateUrl: './build-list.component.html',
-  styleUrls: ['./build-list.component.scss']
+  selector: 'app-mi-build-list',
+  templateUrl: './mi-build-list.component.html',
+  styleUrls: ['./mi-build-list.component.scss']
 })
-export class BuildListComponent implements OnInit {
-
+export class MiBuildListComponent implements OnInit {
   property: string = 'id';
   direction: string = 'asc';
 
@@ -22,23 +22,25 @@ export class BuildListComponent implements OnInit {
   totalElements: number = 0;
 
   dataSource = new MatTableDataSource<Build>();
-  displayedColumns: string[] = ['name', 'createdby', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created'];
+  displayedColumns: string[] = ['name', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created', 'state', 'actions'];
 
   builds: Build[] = [];
+  buildStates: BuildState[] = [];
 
-  filterUsername: string |null | undefined;
   filterName: string |null | undefined;
   filterWeapon1name: string |null | undefined;
   filterWeapon2name: string |null | undefined;
   filterStartDate: FormControl = new FormControl;
   filterEndDate: FormControl = new FormControl;
+  filterState: string |null | undefined;
 
-  username: string |null | undefined;
+  username: string = 'ivan';
   name: string |null | undefined;
   weapon1name: string |null | undefined;
   weapon2name: string |null | undefined;
   startDate: FormControl = new FormControl(null);
   endDate: FormControl = new FormControl(null);
+  state: string |null | undefined; 
 
   constructor(
     private buildService: BuildService,
@@ -64,11 +66,15 @@ export class BuildListComponent implements OnInit {
         pageable.pageNumber = event.pageIndex;
     }
 
-    this.buildService.getPublicBuilds(pageable, this.username, this.name, this.weapon1name, this.weapon2name, this.startDate.value, this.endDate.value).subscribe(data => {
+    this.buildService.getMisBuilds(pageable, this.name, this.weapon1name, this.weapon2name, this.startDate.value, this.endDate.value, this.state).subscribe(data => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;
         this.pageSize = data.pageable.pageSize;
         this.totalElements = data.totalElements;
+    });
+
+    this.buildService.getBuildStates().subscribe(buildStates =>{
+      this.buildStates = buildStates;
     });
 
   }
@@ -130,11 +136,11 @@ export class BuildListComponent implements OnInit {
 
   onCleanFilter(){
     this.filterName = '';
-    this.filterUsername = '';
     this.filterWeapon1name = null;
     this.filterWeapon2name = null;
     this.filterStartDate = new FormControl(null);
     this.filterEndDate = new FormControl(null);
+    this.filterState = null;
 
     this.onSearch();
   }
@@ -150,17 +156,16 @@ export class BuildListComponent implements OnInit {
     if(!this.filterName)
       this.filterName = null;
 
-      if(!this.filterUsername)
-      this.filterUsername = null;
+    if(!this.filterState)
+      this.filterState = null;
 
     this.name = this.filterName;
-    this.username = this.filterUsername;
     this.weapon1name = this.filterWeapon1name;
     this.weapon2name = this.filterWeapon2name;
     this.startDate = this.filterStartDate;
     this.endDate = this.filterEndDate;
+    this.state = this.filterState;
 
     this.loadPage();
   }
-
 }

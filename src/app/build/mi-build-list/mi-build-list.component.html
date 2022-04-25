@@ -1,15 +1,11 @@
 <div class="container">
-    <h1>Listado de builds</h1>
+    <h1>Mis builds</h1>
     <form>
         <div class="filters">
             <div class="filafiltro">
                 <mat-form-field>
                     <mat-label for="filterName">Buscar nombre: </mat-label>
                     <input color="primary" type="text" matInput name="filterName" [(ngModel)]="filterName">
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label for="filterUsername">Buscar creador: </mat-label>
-                    <input color="primary" type="text" matInput name="filterUsername" [(ngModel)]="filterUsername">
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label for="filterWeapon1name">Buscar arma 1: </mat-label>
@@ -21,25 +17,32 @@
                 </mat-form-field>
             </div>
             <div class="filafiltro">
-                <div class="datepickers">
-                    <mat-form-field appearance="fill" class="date">
-                        <mat-label>Después de:</mat-label>
-                        <input matInput [matDatepicker]="picker" [formControl]="filterStartDate" [max]="filterEndDate.value">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="date">
-                        <mat-label>Antes de:</mat-label>
-                        <input matInput [matDatepicker]="picker2" [formControl]="filterEndDate" [min]="filterStartDate.value">
-                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
-                    </mat-form-field>
-                </div>
-                <div class="buttons">
-                    <button mat-raised-button (click)="onSearch()">Buscar</button>
-                    <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
-                </div>
+                <mat-form-field appearance="fill" class="date">
+                    <mat-label>Después de:</mat-label>
+                    <input matInput [matDatepicker]="picker" [formControl]="filterStartDate" [max]="filterEndDate.value">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="date">
+                    <mat-label>Antes de:</mat-label>
+                    <input matInput [matDatepicker]="picker2" [formControl]="filterEndDate" [min]="filterStartDate.value">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Estados</mat-label>
+                    <mat-select [(value)]="filterState">
+                      <mat-option></mat-option>
+                      <mat-option *ngFor="let buildState of buildStates" [value]="buildState.name">
+                        {{buildState.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
             </div>
+            <div>
+                <button mat-raised-button (click)="onCleanFilter()">Limpiar</button>
+                <button mat-raised-button (click)="onSearch()">Buscar</button>
+              </div>
         </div>
     </form>
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortPage($event)">
@@ -104,6 +107,18 @@
             <mat-cell *matCellDef="let element"> {{element.created | date: 'dd-MM-yyyy'}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="state">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="state"> Estado  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.state.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button color="accent"><mat-icon>clear</mat-icon></button>
+            </mat-cell>
+        </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>

@@ -1,18 +1,18 @@
 <div class="container">
     <mat-card class="mat-elevation-z8">
         <div class="photo">
-            <img width="186x" src="http://localhost:8080/weapon/uploads/img/{{weapon.photo}}">
+            <img width="186x" src="http://localhost:8080/weapon/uploads/{{weapon.photo}}">
         </div>
         <div class="detail">
             <div class="title">{{weapon.name}}</div>
             <div class="properties">
                 <div><i>Tipo de arma: </i>{{weapon.weaponType.name}}</div>
                 <div>Requerimientos: </div>
-                <div *ngIf="weapon.dexreq!=0"><i>- Destreza: </i>{{weapon.dexreq}}</div>
-                <div *ngIf="weapon.strengreq!=0"><i>- Fuerza: </i>{{weapon.strengreq}}</div>
-                <div *ngIf="weapon.intreq!=0"><i>- Intelecto: </i>{{weapon.intreq}}</div>
-                <div *ngIf="weapon.faithreq!=0"><i>- Fe : </i>{{weapon.faithreq}}</div>
-                <div *ngIf="weapon.arcanereq!=0"><i>- Arcano: </i>{{weapon.arcanereq}}</div>
+                <div *ngIf="weapon.dexReq!=0"><i>- Destreza: </i>{{weapon.dexReq}}</div>
+                <div *ngIf="weapon.strengReq!=0"><i>- Fuerza: </i>{{weapon.strengReq}}</div>
+                <div *ngIf="weapon.intReq!=0"><i>- Intelecto: </i>{{weapon.intReq}}</div>
+                <div *ngIf="weapon.faithReq!=0"><i>- Fe : </i>{{weapon.faithReq}}</div>
+                <div *ngIf="weapon.arcaneReq!=0"><i>- Arcano: </i>{{weapon.arcaneReq}}</div>
                 <div><i>Peso: </i>{{weapon.weight}}</div>
             </div>
         </div>

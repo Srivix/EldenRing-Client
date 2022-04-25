@@ -13,8 +13,8 @@ export class Build{
     intelect: number = 0;
     faith: number = 0;
     arcane: number = 0;
-    weapon1: Weapon = new Weapon;
-    weapon2: Weapon = new Weapon;
+    weapon1: Weapon| null = null;
+    weapon2: Weapon| null = null;
     createdby: User = new User;
     created: Date = new Date('');
     state: BuildState = new BuildState;

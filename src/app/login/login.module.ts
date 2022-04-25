@@ -8,16 +8,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
-import { HttpInterceptorService } from './http-interceptor.service';
 import { MessageService } from 'primeng/api';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserComponent } from './user/user.component';
 
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -30,11 +32,11 @@ import { MessageService } from 'primeng/api';
     MatFormFieldModule,
     HttpClientModule,
     MatTableModule,
-    JwtModule
+    JwtModule,
+    MatSnackBarModule
   ],
   providers: [
     HttpClientModule,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     MessageService,

@@ -2,7 +2,7 @@
     <div class="container">
         <h1>{{weapon.name}}</h1>
         <div class="photo">
-            <img width="200px" src="http://localhost:8080/weapon/uploads/img/{{weapon.photo}}">
+            <img width="200px" src="http://localhost:8080/weapon/uploads/{{weapon.photo}}">
         </div>
         <div class="detail">
             <div class="properties">
@@ -11,19 +11,19 @@
                 </div>
                 <div class="property">
                     <h3>Requerimientos: </h3>
-                    <div *ngIf="weapon.dexreq!=0"><i>- Destreza: </i>{{weapon.dexreq}}</div>
-                    <div *ngIf="weapon.strengreq!=0"><i>- Fuerza: </i>{{weapon.strengreq}}</div>
-                    <div *ngIf="weapon.intreq!=0"><i>- Intelecto: </i>{{weapon.intreq}}</div>
-                    <div *ngIf="weapon.faithreq!=0"><i>- Fe : </i>{{weapon.faithreq}}</div>
-                    <div *ngIf="weapon.arcanereq!=0"><i>- Arcano: </i>{{weapon.arcanereq}}</div>
+                    <div *ngIf="weapon.dexReq!=0"><i>- Destreza: </i>{{weapon.dexReq}}</div>
+                    <div *ngIf="weapon.strengReq!=0"><i>- Fuerza: </i>{{weapon.strengReq}}</div>
+                    <div *ngIf="weapon.intReq!=0"><i>- Intelecto: </i>{{weapon.intReq}}</div>
+                    <div *ngIf="weapon.faithReq!=0"><i>- Fe : </i>{{weapon.faithReq}}</div>
+                    <div *ngIf="weapon.arcaneReq!=0"><i>- Arcano: </i>{{weapon.arcaneReq}}</div>
                 </div>
                 <div class="property">
                     <h3>Escalado: </h3>
-                    <div *ngIf="weapon.dexscaling!='-'"><i>- Destreza: </i>{{weapon.dexscaling}}</div>
-                    <div *ngIf="weapon.strengscaling!='-'"><i>- Fuerza: </i>{{weapon.strengscaling}}</div>
-                    <div *ngIf="weapon.intscaling!='-'"><i>- Intelecto: </i>{{weapon.intscaling}}</div>
-                    <div *ngIf="weapon.faithscaling!='-'"><i>- Fe : </i>{{weapon.faithscaling}}</div>
-                    <div *ngIf="weapon.arcanescaling!='-'"><i>- Arcano: </i>{{weapon.arcanescaling}}</div>
+                    <div *ngIf="weapon.dexScaling!='-'"><i>- Destreza: </i>{{weapon.dexScaling}}</div>
+                    <div *ngIf="weapon.strengScaling!='-'"><i>- Fuerza: </i>{{weapon.strengScaling}}</div>
+                    <div *ngIf="weapon.intScaling!='-'"><i>- Intelecto: </i>{{weapon.intScaling}}</div>
+                    <div *ngIf="weapon.faithScaling!='-'"><i>- Fe : </i>{{weapon.faithScaling}}</div>
+                    <div *ngIf="weapon.arcaneScaling!='-'"><i>- Arcano: </i>{{weapon.arcaneScaling}}</div>
                 </div>
                 <div class="property">
                     <h3>Descripción: </h3>

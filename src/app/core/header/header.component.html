@@ -4,9 +4,12 @@
             <a  routerLink="" routerLinkActive="active"><img src="./assets/eldenring.png" width="180px" alt="eldenringicon"></a>
         </div>
         <div class="header_login">
-            <a (click)="openLogin()">
+            <a *ngIf="!authService.isAuthenticated()" (click)="openLogin()">
                 <div><mat-icon>account_circle</mat-icon></div>
                 <div class="login">Entra</div>
+            </a>
+            <a *ngIf="authService.isAuthenticated()"(click)="openUserDetail()">
+                <p>{{authService.user.username}}</p>
             </a>
         </div>
     </mat-toolbar-row>
@@ -20,8 +23,8 @@
         <div class="header_button">
             <a routerLink="/builds" routerLinkActive="active">Builds</a>
         </div>
-        <div class="header_button">
-            <a routerLink="/mis-builds" routerLinkActive="active">Mis Builds</a>
+        <div class="header_button" *ngIf="authService.hasRole('USER')">
+            <a routerLink="/misbuilds" routerLinkActive="active">Mis Builds</a>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

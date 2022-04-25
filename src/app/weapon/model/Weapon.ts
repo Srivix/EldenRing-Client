@@ -5,16 +5,16 @@ export class Weapon {
     name: string = '';
     photo: string = '';
     weaponType: WeaponType = new WeaponType;
-    dexreq: number = 0;
-    strengreq: number = 0;
-    intreq: number = 0;
-    faithreq: number = 0;
-    arcanereq: number = 0;
-    dexscaling: string = '';
-    strengscaling: string = '';
-    intscaling: string = '';
-    faithscaling: string = '';
-    arcanescaling: string = '';
+    dexReq: number = 0;
+    strengReq: number = 0;
+    intReq: number = 0;
+    faithReq: number = 0;
+    arcaneReq: number = 0;
+    dexScaling: string = '';
+    strengScaling: string = '';
+    intScaling: string = '';
+    faithScaling: string = '';
+    arcaneScaling: string = '';
     weight: number = 0;
     description: string = '';
 }

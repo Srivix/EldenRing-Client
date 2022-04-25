@@ -1,10 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
-import { LoginService } from '../login.service';
-import { ResponseCredentials } from '../model/ResponseCredentials';
-import { SnackbarService } from '../snackbar.service';
 import { User } from '../model/User';
 
 @Component({
@@ -15,23 +12,26 @@ import { User } from '../model/User';
 export class LoginComponent implements OnInit {
 
   user: User = new User();
-  isloading: boolean = false;
-  registering: boolean = false;
+  registering: Boolean = false;
+  passwordvalidation: string |null = null;
 
   constructor(
-    private loginService: LoginService,
-    private auth: AuthService,
-    private router: Router,
-    private snackbarService: SnackbarService,
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
     public dialogRef: MatDialogRef<LoginComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ) { }
+  ) {
+    this.user = new User();
+   }
 
   ngOnInit(registering?: boolean): void {
-    if(registering!=null)
-      this.registering = registering;
 
-    this.user = new User();
+    if(this.authService.isAuthenticated()) {
+        this.onClose();
+    }
+
+    if(registering!=null)
+      this.registering=registering;
   }
 
   onClose(): void{
@@ -39,27 +39,54 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    if(this.user.username == '') return;
-    if(this.user.password == '') return;
+    if(this.user.username == null || this.user.password == null) {
+      //Vacios
+      this.snackBar.open("Usuario o contraseña vacios.","cerrar",{
+        duration: 2000,
+        verticalPosition: 'top'
+      });
+      return;
+    }
 
-    this.isloading = true;
+    this.authService.login(this.user).subscribe(response => {
 
-    this.loginService.login(this.user.username, this.user.password).subscribe(
-      (res: ResponseCredentials) =>{
-        this.loginService.putCredentials(res);
-
-        this.router.navigate(['main']);
-        this.isloading = false;
-      },
-      () =>{
-        this.snackbarService.error('Credenciales incorrectas.');
-        this.isloading = false;
+      this.authService.guardarUsuario(response.access_token);
+      this.authService.guardarToken(response.access_token);
+      let user = this.authService.user;
+      if(user!=null){
+        this.snackBar.open("Inicio de sesión con exito.","cerrar",{
+          duration: 2000,
+          verticalPosition: 'top'
+        });
+        this.onClose();
+      }
+    }, err => {
+        //Error iniciando sesion
+        this.snackBar.open("Error en inicio de sesión.","cerrar",{
+          duration: 2000,
+          verticalPosition: 'top'
+        });
       }
     );
   }
 
   register(){
+    this.authService.register(this.user).subscribe(response =>{
+
+      this.login();
+      this.snackBar.open(response.mensaje,"cerrar",{
+        duration: 2000,
+        verticalPosition: 'top'
+      });
+      this.onClose();    
+    }, err =>{
+      this.snackBar.open(err.error.mensaje,"cerrar",{
+        duration: 2000,
+        verticalPosition: 'top'
+      });
+    }
     
+    );
   }
 
 }

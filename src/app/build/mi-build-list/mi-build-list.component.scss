@@ -1,0 +1,104 @@
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 210px);
+  
+    h1{
+      margin-top: 10px;
+      margin-bottom: 0;
+      font-weight: bold;
+      color: goldenrod;
+    }
+  
+      mat-table {
+          width: 80%;
+          overflow: auto;
+          max-height: calc(100vh - 450px);
+          min-height: 200px;
+          margin-top: 10px;
+          margin-bottom: 20px;
+          margin-right: auto;
+          margin-left: auto;
+        .mat-header-row {
+          background-color: rgb(54, 28, 10);
+          min-width: 1050px;
+  
+          .mat-header-cell {
+            text-transform: uppercase;
+            font-weight: bold;
+            justify-content: center;
+            width: 50px;
+          }     
+        }
+        .mat-row{
+          min-width: 1050px;
+        }
+        .mat-cell{
+            justify-content: center;
+            overflow: hidden;
+        } 
+        .mat-column-name, .mat-column-weapon1, .mat-column-weapon2, .mat-column-acctions{
+          flex: 0 0 10%;
+          justify-content: left;
+        }
+        
+        .mat-icon-button{
+          background-color: rgb(216, 205, 205);
+          margin-right: 5px;
+          width: 30px;
+          height: 30px;
+          .mat-icon{
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            line-height: 20px;
+          }
+        }
+      }
+  
+      mat-paginator{
+        width: 80%;
+        margin-bottom: 10px;
+      }
+  
+      .buttons{
+        width: 200px;
+        margin-bottom: 20px;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: right;
+      }
+  }  
+  
+  .filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    mat-form-field {
+        width: 120px;
+        height: 50px;
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+  }
+  
+  button{
+    background-color: rgb(26, 24, 24);
+    margin: 10px;
+    height: 40px;
+  }
+  
+  .container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .filters mat-form-field.date{
+    width: 150px;
+    margin: 10px;
+  }

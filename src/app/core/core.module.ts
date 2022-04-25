@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -32,11 +35,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCardModule,
     FormsModule,
     BrowserModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class CoreModule { }

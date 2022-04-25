@@ -1,87 +1,124 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { ResponseCredentials } from './model/ResponseCredentials';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './model/User';
+import { environment } from 'src/environments/environment';
+import { Role } from './model/Role';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  credentials: ResponseCredentials | undefined;
-  token: string | null = null;
-  user: User | null = null;
+  private _user: User|null = this.user;
+  private _token: string|null = this.token;
+  private item: string|null = null;
 
-  constructor(
-    private jwtHelper: JwtHelperService,
-    private router: Router,
-    ) { }
+  constructor(private http: HttpClient) { }
 
-    putTokenCredentials(res: ResponseCredentials): void{
-      localStorage.setItem('credentials', JSON.stringify(res))
-    }
+  public get user(): User {
 
-    putUserInfo(user: User){
-      this.user = user;
-    }
-
-    getTokenCredentials(): ResponseCredentials | null{
-
-      if(this.credentials == undefined){
-        let json = localStorage.getItem('credentials');
-
-        if(json !=null)
-          this.credentials = JSON.parse(json);
+    if(this._user != null) {
+      return this._user;
+    }else
+      if (this._user == null && sessionStorage.getItem('user') != null) {
+        this.item = sessionStorage.getItem('user');
+        if(this.item!=null){
+          this._user = JSON.parse(this.item);
+          if(this._user!=null)
+            return this._user;
       }
-
-      if(this.credentials == undefined) return null;
-
-      return this.credentials;
     }
+    
+    return new User();
+  }
 
-    getToken(): string | null{
-      if(this.token == null){
-        let credentials = this.getTokenCredentials();
-        if(credentials != null)
-          this.token = credentials.accessToken;
+  public get token(): string|null {
+    if (this._token != null) {
+      return this._token;
+    } else if (this._token == null && sessionStorage.getItem('token') != null) {
+      this._token = sessionStorage.getItem('token');
+      return this._token;
+    }
+    return null;
+  }
+
+  login(usuario: User): Observable<any> {
+    const urlEndpoint = environment.server+'/oauth/token';
+
+    const credenciales = btoa('eldenringcalculatorclient' + ':' + '12345');
+
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + credenciales
+    });
+
+    let params = new URLSearchParams();
+    params.set('grant_type', 'password');
+    params.set('username', usuario.username);
+    params.set('password', usuario.password);
+
+    return this.http.post<any>(urlEndpoint, params.toString(), { headers: httpHeaders });
+  }
+
+  guardarUsuario(accessToken: string): void {
+    let payload = this.obtenerDatosToken(accessToken);
+    this._user = new User();
+    this._user.username = payload.user_name;
+
+    let roles: Role[] = [];
+    for(let i=0; i<payload.authorities.length;i++){
+      let role: Role = new Role;
+      role.name = payload.authorities[i];
+      roles.push(role);
+    }
+    this._user.role = roles;
+
+    sessionStorage.setItem('user', JSON.stringify(this._user));
+  }
+
+  guardarToken(accessToken: string): void {
+    this._token = accessToken;
+    sessionStorage.setItem('token', accessToken);
+  }
+
+  obtenerDatosToken(accessToken: string | null): any {
+    if (accessToken != null) {
+      if(accessToken != ''){
+        var base64Url = accessToken.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        return JSON.parse(window.atob(base64));
       }
-
-      return this.token;
     }
+    return null;
+  }
 
-    public logout(){
-      this.clearCredentials();
-      this.router.navigateByUrl('**')
+  isAuthenticated(): boolean {
+    let payload = this.obtenerDatosToken(this.token);
+    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+      return true;
     }
+    return false;
+  }
 
-    clearCredentials(){
-      localStorage.removeItem('credentials');
+  hasRole(role: string): boolean {
+    if(this._user != null)
+      if (this._user?.role.find(r => r.name  == role)) {
+        return true;
+      }
+    return false;
+  }
 
-      this.credentials = undefined;
-      this.token = null;
-      this.user = null;
-    }
+  logout(): void {
+    this._token = null;
+    this._user = null;
+    sessionStorage.clear();
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+  }
 
-    getUsername(): string | null{
-      if(this.user == null) return null;
-      return this.user.username;
-    }
-
-    isAdmin(): boolean{
-      if(this.user == null || this.user.role == null) return false;
-      return this.user.role.name == 'ADMIN';
-    }
-
-    isTokenValid(): boolean{
-      let accessToken = this.getToken();
-      if(accessToken == null) return false;
-
-      return !this.jwtHelper.isTokenExpired(accessToken);
-    }
-
-    getUserInfo(): User | null{
-      return this.user;
-    }
-
+  register(user: User): Observable<any> {
+    const urlEndpoint = environment.server+'/user/register';
+    return this.http.put<User>(urlEndpoint, user);
+  }
 }

@@ -13,14 +13,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
-import { CustomMatPaginatorIntl } from '../core/paginator/CustomPaginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MiBuildListComponent } from './mi-build-list/mi-build-list.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
 @NgModule({
   declarations: [
     BuildListComponent,
+    MiBuildListComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   providers: [
     {
       provide: MatPaginatorIntl,
-      useClass: CustomMatPaginatorIntl
     },
     {
       provide: LOCALE_ID,

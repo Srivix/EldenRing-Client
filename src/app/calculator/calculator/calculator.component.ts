@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BuildService } from 'src/app/build/build.service';
 import { Build } from 'src/app/build/model/Build';
@@ -25,6 +26,7 @@ export class CalculatorComponent implements OnInit {
   build: Build = new Build;
 
   constructor(
+    private snackBar: MatSnackBar,
     private calculatorService: CalculatorService,
     private weaponService: WeaponService,
     private buildService: BuildService,
@@ -42,7 +44,6 @@ export class CalculatorComponent implements OnInit {
       this.weaponService.getWeapons().subscribe(
         weapons =>{ 
           this.weapons = weapons
-          this.weapons.unshift(new Weapon)
         });
   }
 
@@ -64,16 +65,16 @@ export class CalculatorComponent implements OnInit {
 
     this.build.name = this.name;
 
-    this.build.createdby.username = 'ivan';
-
-    this.build.createdby.role.name= 'USER';
-
     this.build.state.name = 'PUBLICO';
 
-    console.log(this.build)
     this.buildService.saveBuild(this.build).subscribe(
-      result =>  this.router.navigate(['builds'])
-    );
+      result =>  {
+        this.router.navigate(['misbuilds'])
+        this.snackBar.open(result.mensaje,'Cerrar', {
+          duration: 2000,
+          verticalPosition: 'top'
+        });
+    });
   }
 
   putOffDex(){

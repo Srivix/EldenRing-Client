@@ -50,6 +50,14 @@ a.active {
 }
 
 @media screen and(max-width: 600px){
+  img{
+    width: 100px;
+  }
+
+  p{
+    font-size: 12px;
+  }
+
   .header_container
     .header_login
       .login{

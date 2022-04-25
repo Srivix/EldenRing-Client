@@ -1,13 +1,7 @@
 <mat-dialog-content>
-    <div class="container">
-        <h1 *ngIf="registering==false">Iniciar Sesión</h1>
-        <h1 *ngIf="registering==true">Registrarse</h1>
-        <form>
-            <mat-form-field *ngIf="registering==true">
-                <mat-label>Mail</mat-label>
-                <input type="text" matInput placeholder="Usuario" [(ngModel)]="user.email" name="username" required>
-            </mat-form-field>
-
+    <div class="container" *ngIf="registering==false">
+        <h1>Iniciar Sesión</h1>
+        <form #loginForm="ngForm">
             <mat-form-field>
                 <mat-label>Usuario</mat-label>
                 <input type="text" matInput placeholder="Usuario" [(ngModel)]="user.username" name="username" required>
@@ -15,14 +9,46 @@
 
             <mat-form-field>
                 <mat-label>Password</mat-label>
-                <input type="password" matInput placeholder="Password" [(ngModel)]="user.password" name="password" required>
+                <input type="password" matInput placeholder="Password" [(ngModel)]="user.password" name="password" autocomplete="on" required>
             </mat-form-field>
+
         </form>
         <div class="buttons">
-            <button *ngIf="registering==false" mat-stroked-button (click)="login()" [disabled]="user.username == '' || user.password == ''">Iniciar Sesión</button>
-            <button *ngIf="registering==false" mat-stroked-button (click)="ngOnInit(true)">Registrarse</button>
-            <button *ngIf="registering==true" mat-stroked-button (click)="register()" [disabled]="user.username == '' || user.password == '' || user.email == ''">Registrarse</button>
-            <button *ngIf="registering==true" mat-stroked-button (click)="ngOnInit(false)">Iniciar Sesión</button>
+            <button mat-stroked-button (click)="login()" [disabled]="loginForm.form.invalid">Iniciar Sesión</button>
+            <button mat-stroked-button (click)="ngOnInit(true)">Registrarse</button>
+        </div>
+    </div>
+    <div class="container" *ngIf="registering==true">
+        <h1>Registrarse</h1>
+        <form #registerForm="ngForm">
+            <mat-form-field>
+                <mat-label>Mail</mat-label>
+                <input type="email" matInput placeholder="Email" [(ngModel)]="user.email" name="email" pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" required>
+                <mat-error>El formato del correo es: correo@mail.com</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <input type="text" matInput placeholder="Usuario" [(ngModel)]="user.username" name="username" minlength="4" required>
+                <mat-error *ngIf="registering==true">El usuario debe tener un tamaño superior a 4.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Password</mat-label>
+                <input type="password" matInput placeholder="Password" [(ngModel)]="user.password" name="password" minlength="8" autocomplete="on" required>
+                <mat-error *ngIf="registering==true">La contraseña debe tener un tamaño superior a 8.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Repite Password</mat-label>
+                <input type="password" matInput placeholder="Password Repeat" [(ngModel)]="passwordvalidation" autocomplete="off" name="password2" required>
+            </mat-form-field>
+            <p *ngIf="registering==true&&user.password!=passwordvalidation">Las contraseñas deben coincidir.</p>
+
+        </form>
+        <div class="buttons">
+            <button mat-stroked-button (click)="register()" [disabled]="registerForm.form.invalid||passwordvalidation!=user.password">Registrarse</button>
+            <button mat-stroked-button (click)="ngOnInit(false)">Iniciar Sesión</button>
         </div>
     </div>
 </mat-dialog-content>
