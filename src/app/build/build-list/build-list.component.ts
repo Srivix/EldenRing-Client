@@ -4,8 +4,10 @@ import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Pageable } from 'src/app/core/model/page/Pageable';
+import { AuthService } from 'src/app/login/auth.service';
 import { BuildService } from '../build.service';
 import { Build } from '../model/Build';
+import { BuildState } from '../model/BuildState';
 
 @Component({
   selector: 'app-build-list',
@@ -25,6 +27,10 @@ export class BuildListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'createdby', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created'];
 
   builds: Build[] = [];
+  buildStates: BuildState[] = [];
+
+  adminMode: boolean = false;
+  role: string = 'ADMIN';
 
   filterUsername: string |null | undefined;
   filterName: string |null | undefined;
@@ -32,6 +38,7 @@ export class BuildListComponent implements OnInit {
   filterWeapon2name: string |null | undefined;
   filterStartDate: FormControl = new FormControl;
   filterEndDate: FormControl = new FormControl;
+  filterState: string |null | undefined;
 
   username: string |null | undefined;
   name: string |null | undefined;
@@ -39,8 +46,10 @@ export class BuildListComponent implements OnInit {
   weapon2name: string |null | undefined;
   startDate: FormControl = new FormControl(null);
   endDate: FormControl = new FormControl(null);
+  state: string |null | undefined; 
 
   constructor(
+    public authService: AuthService,
     private buildService: BuildService,
   ) { }
 
@@ -64,12 +73,26 @@ export class BuildListComponent implements OnInit {
         pageable.pageNumber = event.pageIndex;
     }
 
-    this.buildService.getPublicBuilds(pageable, this.username, this.name, this.weapon1name, this.weapon2name, this.startDate.value, this.endDate.value).subscribe(data => {
+    if(this.adminMode==false)
+      this.buildService.getPublicBuilds(pageable, this.username, this.name, this.weapon1name, this.weapon2name, this.startDate.value, this.endDate.value).subscribe(data => {
+          this.dataSource.data = data.content;
+          this.pageNumber = data.pageable.pageNumber;
+          this.pageSize = data.pageable.pageSize;
+          this.totalElements = data.totalElements;
+      });
+    else{
+
+      this.buildService.getAllBuilds(pageable, this.username, this.name, this.weapon1name, this.weapon2name, this.startDate.value, this.endDate.value, this.state).subscribe(data => {
         this.dataSource.data = data.content;
         this.pageNumber = data.pageable.pageNumber;
         this.pageSize = data.pageable.pageSize;
         this.totalElements = data.totalElements;
-    });
+      });
+
+      this.buildService.getBuildStates().subscribe(buildStates =>{
+        this.buildStates = buildStates;
+      });
+    }
 
   }
 
@@ -135,6 +158,7 @@ export class BuildListComponent implements OnInit {
     this.filterWeapon2name = null;
     this.filterStartDate = new FormControl(null);
     this.filterEndDate = new FormControl(null);
+    this.filterState = null;
 
     this.onSearch();
   }
@@ -150,8 +174,11 @@ export class BuildListComponent implements OnInit {
     if(!this.filterName)
       this.filterName = null;
 
-      if(!this.filterUsername)
+    if(!this.filterUsername)
       this.filterUsername = null;
+    
+    if(!this.filterState)
+      this.filterState = null;
 
     this.name = this.filterName;
     this.username = this.filterUsername;
@@ -159,6 +186,16 @@ export class BuildListComponent implements OnInit {
     this.weapon2name = this.filterWeapon2name;
     this.startDate = this.filterStartDate;
     this.endDate = this.filterEndDate;
+    this.state = this.filterState;
+
+    this.loadPage();
+  }
+
+  changeMode(): void{
+    if(this.adminMode == true)
+      this.displayedColumns = ['name', 'createdby', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created', 'state'];
+    else
+      this.displayedColumns = ['name', 'createdby', 'level', 'dexterity', 'strength', 'intelect', 'faith', 'arcane', 'weapon1', 'weapon2', 'created'];
 
     this.loadPage();
   }

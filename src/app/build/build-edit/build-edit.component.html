@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Crear categoría</h1>
+    <form>
+        <mat-form-field>
+            <mat-label>Cambiar nombre de la build: </mat-label>
+            <input type="text" matInput placeholder="Nombre de build" [(ngModel)]="build.name" name="name" required>
+            <mat-error>El nombre no puede estar vacío</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Cambiar estado: </mat-label>
+            <mat-select [(value)]="state">
+              <mat-option *ngFor="let buildState of buildStates" [value]="buildState">
+                {{buildState.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>

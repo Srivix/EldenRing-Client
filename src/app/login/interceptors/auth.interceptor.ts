@@ -23,7 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(req).pipe(
       catchError(e => {
-        console.log(e);
         if (e.status == 401) {
 
           if (this.authService.isAuthenticated()) {

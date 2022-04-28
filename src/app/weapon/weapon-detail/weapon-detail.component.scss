@@ -24,10 +24,12 @@
     }
 
     .buttons {
-        text-align: right;
-
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         button {
-            margin-left: 10px;
+            background-color: grey;
+            margin:5px
         }
     }
 

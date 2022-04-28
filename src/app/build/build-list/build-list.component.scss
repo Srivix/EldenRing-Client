@@ -77,8 +77,7 @@
 
 button{
   background-color: rgb(26, 24, 24);
-  margin-right: 10px;
-  margin-left: 10px;
+  margin: 10px;
   height: 40px;
 }
 
@@ -89,4 +88,30 @@ button{
 .filters mat-form-field.date{
   width: 200px;
   margin: 10px;
+}
+
+.radioSelect{
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.radioButton{
+  margin: 3px;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+ }
+
+ ::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+} 
+
+::ng-deep.mat-form-field-ripple {
+ /*change color of underline when focused*/
+ background-color: white !important;;
 }

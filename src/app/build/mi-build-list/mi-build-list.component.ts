@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
 import { Pageable } from 'src/app/core/model/page/Pageable';
+import { BuildEditComponent } from '../build-edit/build-edit.component';
 import { BuildService } from '../build.service';
 import { Build } from '../model/Build';
 import { BuildState } from '../model/BuildState';
@@ -34,7 +38,6 @@ export class MiBuildListComponent implements OnInit {
   filterEndDate: FormControl = new FormControl;
   filterState: string |null | undefined;
 
-  username: string = 'ivan';
   name: string |null | undefined;
   weapon1name: string |null | undefined;
   weapon2name: string |null | undefined;
@@ -43,7 +46,9 @@ export class MiBuildListComponent implements OnInit {
   state: string |null | undefined; 
 
   constructor(
+    private snackBar: MatSnackBar,
     private buildService: BuildService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -168,4 +173,42 @@ export class MiBuildListComponent implements OnInit {
 
     this.loadPage();
   }
+
+  deleteBuild(build: Build){
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: { title: "Eliminar build", description: "Atención si borra la build se perderán sus datos.<br> ¿Desea eliminar la build?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.buildService.deleteBuild(build.id).subscribe(result => {
+          this.ngOnInit();
+          this.snackBar.open(result.mensaje,"cerrar",{
+            duration: 2000,
+            verticalPosition: 'top'
+          });
+        }); 
+      }
+    });
+
+  }
+
+  saveBuild(build: Build){
+    const dialogRef = this.dialog.open(BuildEditComponent, {
+      data: { build: build }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.buildService.saveBuild(build).subscribe(result => {
+          this.ngOnInit();
+          this.snackBar.open(result.mensaje,"cerrar",{
+            duration: 2000,
+            verticalPosition: 'top'
+          });
+        }); 
+      }
+    });
+  }
+
 }

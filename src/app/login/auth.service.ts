@@ -21,8 +21,8 @@ export class AuthService {
     if(this._user != null) {
       return this._user;
     }else
-      if (this._user == null && sessionStorage.getItem('user') != null) {
-        this.item = sessionStorage.getItem('user');
+      if (this._user == null && localStorage.getItem('user') != null) {
+        this.item = localStorage.getItem('user');
         if(this.item!=null){
           this._user = JSON.parse(this.item);
           if(this._user!=null)
@@ -36,8 +36,8 @@ export class AuthService {
   public get token(): string|null {
     if (this._token != null) {
       return this._token;
-    } else if (this._token == null && sessionStorage.getItem('token') != null) {
-      this._token = sessionStorage.getItem('token');
+    } else if (this._token == null && localStorage.getItem('token') != null) {
+      this._token = localStorage.getItem('token');
       return this._token;
     }
     return null;
@@ -74,12 +74,12 @@ export class AuthService {
     }
     this._user.role = roles;
 
-    sessionStorage.setItem('user', JSON.stringify(this._user));
+    localStorage.setItem('user', JSON.stringify(this._user));
   }
 
   guardarToken(accessToken: string): void {
     this._token = accessToken;
-    sessionStorage.setItem('token', accessToken);
+    localStorage.setItem('token', accessToken);
   }
 
   obtenerDatosToken(accessToken: string | null): any {
@@ -112,9 +112,9 @@ export class AuthService {
   logout(): void {
     this._token = null;
     this._user = null;
-    sessionStorage.clear();
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');
+    localStorage.clear();
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   register(user: User): Observable<any> {

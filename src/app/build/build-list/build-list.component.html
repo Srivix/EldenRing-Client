@@ -34,6 +34,15 @@
                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
                     </mat-form-field>
+                    <mat-form-field *ngIf="adminMode" appearance="fill">
+                        <mat-label>Estados</mat-label>
+                        <mat-select [(value)]="filterState">
+                          <mat-option></mat-option>
+                          <mat-option *ngFor="let buildState of buildStates" [value]="buildState.name">
+                            {{buildState.name}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                 </div>
                 <div class="buttons">
                     <button mat-raised-button (click)="onSearch()">Buscar</button>
@@ -42,6 +51,13 @@
             </div>
         </div>
     </form>
+    <div *ngIf="authService.hasRole(role)">
+        <label for="radioSelect">Modo: </label>
+        <mat-radio-group color="primary" class="radioSelect" aria-labelledby="radioSelect" [value]="adminMode" [(ngModel)]="adminMode" (change)="changeMode()">
+            <mat-radio-button [value]="false" class="radioButton"> Usuario </mat-radio-button>
+            <mat-radio-button [value]="true" class="radioButton"> Admin </mat-radio-button>
+        </mat-radio-group>
+    </div>
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sortPage($event)">
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header="name"> Nombre Build  </mat-header-cell>
@@ -104,13 +120,14 @@
             <mat-cell *matCellDef="let element"> {{element.created | date: 'dd-MM-yyyy'}} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="state" *ngIf="adminMode">
+            <mat-header-cell *matHeaderCellDef  mat-sort-header="state"> Estado  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.state.name}} </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
-    <mat-paginator (page)="loadPage($event)" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons hidePageSize class="mat-elevation-z8"></mat-paginator>
-
-    <div class="buttons">
-        <button mat-flat-button color="accent" class="mat-elevation-z8">Nueva Build</button>
-    </div>   
+    <mat-paginator (page)="loadPage($event)" [pageIndex]="pageNumber" [pageSize]="pageSize" [length]="totalElements" showFirstLastButtons hidePageSize class="mat-elevation-z8"></mat-paginator> 
 </div>

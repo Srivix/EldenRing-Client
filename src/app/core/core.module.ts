@@ -14,7 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogConfirmationComponent } from './dialog-confirmation/dialog-confirmation.component';
 
 
 
@@ -22,6 +22,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   declarations: [
     HeaderComponent,
     FooterComponent,
+    DialogConfirmationComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +39,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule
+  ],
+  providers: [
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: {},
+    },
   ],
   exports: [
     HeaderComponent,

@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Weapon } from '../model/Weapon';
-import  { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import  { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { WeaponEditComponent } from '../weapon-edit/weapon-edit.component';
+import { AuthService } from 'src/app/login/auth.service';
 
 @Component({
   selector: 'app-weapon-detail',
@@ -9,11 +11,14 @@ import  { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class WeaponDetailComponent implements OnInit {
 
+  role: string = 'ADMIN';
   weapon: Weapon = new Weapon();
 
   constructor(
     public dialogRef: MatDialogRef<WeaponDetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog,
+    public authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +29,16 @@ export class WeaponDetailComponent implements OnInit {
 
   onClose(){
     this.dialogRef.close();
+  }
+
+  openModify(weapon: Weapon){
+    const dialogRef = this.dialog.open(WeaponEditComponent,{
+      data: { weapon: weapon}
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      this.onClose();
+    })
   }
 
 }

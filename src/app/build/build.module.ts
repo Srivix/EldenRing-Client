@@ -15,7 +15,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MiBuildListComponent } from './mi-build-list/mi-build-list.component';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BuildEditComponent } from './build-edit/build-edit.component';
 
 
 
@@ -23,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   declarations: [
     BuildListComponent,
     MiBuildListComponent,
+    BuildEditComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSortModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRadioModule,
+    MatSnackBarModule
   ],
   providers: [
     {

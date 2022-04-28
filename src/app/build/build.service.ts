@@ -66,12 +66,16 @@ export class BuildService {
     return this.http.post<BuildPage>(this.url+'/user'+this.composeFindUrl(null, name, weapon1name, weapon2name, startDate, endDate, state),{pageable:pageable, name, weapon1name, weapon2name, startDate, endDate, state});
   }
 
-  getAllBuilds(): Observable<Build[]>{
-    return this.http.get<Build[]>(this.url);
+  getAllBuilds(pageable: Pageable, username?: string | null| undefined, name?: string | null| undefined, weapon1name?: string | null| undefined, weapon2name?: string | null| undefined, startDate?: Date, endDate?: Date, state?: string | null| undefined): Observable<BuildPage>{
+    return this.http.post<BuildPage>(this.url+'/all'+this.composeFindUrl(username, name, weapon1name, weapon2name, startDate, endDate, state),{pageable:pageable, username, name, weapon1name, weapon2name, startDate, endDate, state});
   }
 
   saveBuild(build: Build): Observable<any>{
     return this.http.put<Build>(this.url, build);
+  }
+
+  deleteBuild(idBuild: number): Observable<any> {
+    return this.http.delete<any>(this.url+"/"+idBuild);
   }
 
   getBuildStates(): Observable<BuildState[]>{

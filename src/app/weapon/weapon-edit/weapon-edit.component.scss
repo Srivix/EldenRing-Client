@@ -1,0 +1,106 @@
+.container {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom:20px;
+        align-items: center;
+    }
+
+    .property{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+
+        p{
+            margin-right: 10px;
+        }
+
+        mat-form-field{
+            width: 35px;
+        }
+
+    }
+
+    .weight{
+        width: 35px;;
+    }
+
+    mat-form-field{
+        width: 300px;
+    }
+
+    .weaponType{
+        width: 180px;
+    }
+
+    .requisitos{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    .scale{
+        display: flex;
+        flex-direction: column;
+
+        mat-form-field{
+            width: 100px;
+        }
+    }
+
+    .buttons {
+        button{
+            margin: 5px;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;     /* Tamaño del scroll en vertical */
+    height: 8px;    /* Tamaño del scroll en horizontal */
+    display: none;
+}
+
+@media screen and(max-width: 500px){
+    .container{
+        width: 180px;
+
+        mat-form-field{
+            width: 160px;
+        }
+    }
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: white !important;
+   }
+  
+   ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: white !important;
+  } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: white !important;;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+  
