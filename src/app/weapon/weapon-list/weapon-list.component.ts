@@ -3,7 +3,6 @@ import { Weapon } from '../model/Weapon';
 import { WeaponDetailComponent } from '../weapon-detail/weapon-detail.component';
 import { WeaponService } from '../weapon.service';
 import { MatDialog } from '@angular/material/dialog';
-import { WeaponTypeService } from '../weapon-type.service';
 import { WeaponType } from '../model/WeaponType';
 import { WeaponEditComponent } from '../weapon-edit/weapon-edit.component';
 import { AuthService } from 'src/app/login/auth.service';
@@ -25,7 +24,6 @@ export class WeaponListComponent implements OnInit {
 
   constructor(
     private weaponService: WeaponService,
-    private weaponTypeService: WeaponTypeService,
     public dialog: MatDialog,
     public authService: AuthService,
   ) { }
@@ -35,7 +33,7 @@ export class WeaponListComponent implements OnInit {
       weapons => this.weapons = weapons
     );
 
-    this.weaponTypeService.getWeaponTypes().subscribe(
+    this.weaponService.getWeaponTypes().subscribe(
       weaponTypes => this.weaponTypes = weaponTypes
     );
   }

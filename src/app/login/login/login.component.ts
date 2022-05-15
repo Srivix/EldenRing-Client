@@ -50,8 +50,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(this.user).subscribe(response => {
 
-      this.authService.guardarUsuario(response.access_token);
-      this.authService.guardarToken(response.access_token);
+      this.authService.saveUser(response.access_token);
+      this.authService.saveToken(response.access_token);
       let user = this.authService.user;
       if(user!=null){
         this.snackBar.open("Inicio de sesión con exito.","cerrar",{

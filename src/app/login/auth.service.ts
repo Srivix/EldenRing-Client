@@ -61,8 +61,8 @@ export class AuthService {
     return this.http.post<any>(urlEndpoint, params.toString(), { headers: httpHeaders });
   }
 
-  guardarUsuario(accessToken: string): void {
-    let payload = this.obtenerDatosToken(accessToken);
+  saveUser(accessToken: string): void {
+    let payload = this.getTokenData(accessToken);
     this._user = new User();
     this._user.username = payload.user_name;
 
@@ -77,12 +77,12 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(this._user));
   }
 
-  guardarToken(accessToken: string): void {
+  saveToken(accessToken: string): void {
     this._token = accessToken;
     localStorage.setItem('token', accessToken);
   }
 
-  obtenerDatosToken(accessToken: string | null): any {
+  getTokenData(accessToken: string | null): any {
     if (accessToken != null) {
       if(accessToken != ''){
         var base64Url = accessToken.split('.')[1];
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    let payload = this.obtenerDatosToken(this.token);
+    let payload = this.getTokenData(this.token);
     if (payload != null && payload.user_name && payload.user_name.length > 0) {
       return true;
     }

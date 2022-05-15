@@ -19,7 +19,7 @@ export class BuildService {
     private http: HttpClient,
   ) { }
 
-  private composeFindUrl(username?: string | null| undefined, name?: string | null| undefined, weapon1name?: string | null| undefined, weapon2name?: string | null| undefined, startDate?: Date, endDate?: Date, state?: string | null| undefined): string{
+  private composeFindUrl(username?: string | null, name?: string | null, weapon1name?: string | null, weapon2name?: string | null, startDate?: Date, endDate?: Date, state?: string | null): string{
 
     let params = '';
 
@@ -53,25 +53,33 @@ export class BuildService {
       params += 'endDate='+formatEndDate;
     }
 
+    if(state !=null){
+      if(params != '') params += '&';
+      params += 'state='+state;
+    }
+
     if(params!='') return '?'+params;
     else return '';
     
   }
 
-  getPublicBuilds(pageable: Pageable, username?: string | null| undefined, name?: string | null| undefined, weapon1name?: string | null| undefined, weapon2name?: string | null| undefined, startDate?: Date, endDate?: Date): Observable<BuildPage>{
+  getPublicBuilds(pageable: Pageable, username?: string | null, name?: string | null, weapon1name?: string | null, weapon2name?: string | null, startDate?: Date, endDate?: Date): Observable<BuildPage>{
     return this.http.post<BuildPage>(this.url+this.composeFindUrl(username, name, weapon1name, weapon2name, startDate, endDate, null),{pageable:pageable, username, name, weapon1name, weapon2name, startDate, endDate});
   }
 
-  getMisBuilds(pageable: Pageable, name?: string | null| undefined, weapon1name?: string | null| undefined, weapon2name?: string | null| undefined, startDate?: Date, endDate?: Date, state?: string | null| undefined): Observable<BuildPage>{
+  getMisBuilds(pageable: Pageable, name?: string | null, weapon1name?: string | null, weapon2name?: string | null, startDate?: Date, endDate?: Date, state?: string | null): Observable<BuildPage>{
     return this.http.post<BuildPage>(this.url+'/user'+this.composeFindUrl(null, name, weapon1name, weapon2name, startDate, endDate, state),{pageable:pageable, name, weapon1name, weapon2name, startDate, endDate, state});
   }
 
-  getAllBuilds(pageable: Pageable, username?: string | null| undefined, name?: string | null| undefined, weapon1name?: string | null| undefined, weapon2name?: string | null| undefined, startDate?: Date, endDate?: Date, state?: string | null| undefined): Observable<BuildPage>{
+  getAllBuilds(pageable: Pageable, username?: string | null, name?: string | null, weapon1name?: string | null, weapon2name?: string | null, startDate?: Date, endDate?: Date, state?: string | null): Observable<BuildPage>{
     return this.http.post<BuildPage>(this.url+'/all'+this.composeFindUrl(username, name, weapon1name, weapon2name, startDate, endDate, state),{pageable:pageable, username, name, weapon1name, weapon2name, startDate, endDate, state});
   }
 
   saveBuild(build: Build): Observable<any>{
-    return this.http.put<Build>(this.url, build);
+    if(build.id != null && build.id !=0)    
+    return this.http.put<Build>(this.url+"/"+build.id, build);
+  else
+    return this.http.put<Build>(this.url, build)
   }
 
   deleteBuild(idBuild: number): Observable<any> {

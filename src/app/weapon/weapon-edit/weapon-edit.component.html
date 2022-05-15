@@ -6,9 +6,6 @@
         <div *ngIf="weapon.id==null || weapon.id==0">
             <h1>Crear Arma</h1>
         </div>
-        <div>
-                <input type="file">
-        </div>
         <form>
             <p>Nombre del Arma:</p>
             <mat-form-field>
@@ -16,8 +13,8 @@
             </mat-form-field>
             <p>Tipo de arma:</p>
             <mat-form-field appearance="fill" class="weaponType">
-                <mat-select [(value)]="weapon.weaponType">
-                  <mat-option *ngFor="let weaponType of weaponTypes" [value]="weaponType">
+                <mat-select [(value)]="weapon.weaponType.id">
+                  <mat-option *ngFor="let weaponType of weaponTypes" [value]="weaponType.id">
                     {{weaponType.name}}
                   </mat-option>
                 </mat-select>
@@ -73,7 +70,7 @@
                   <mat-form-field appearance="fill">
                     <mat-label>Fuerza: </mat-label>
                     <mat-select [(value)]="weapon.strengScaling">
-                        <mat-option value="-">-</mat-option>
+                        <mat-option value='-'>-</mat-option>
                         <mat-option value="S">S</mat-option>
                         <mat-option value="A">A</mat-option>
                         <mat-option value="B">B</mat-option>
@@ -128,6 +125,12 @@
                 <input type="number" min="1" max="9" step="0.5" placeholder="Peso" matInput name="weight" [(ngModel)]="weapon.weight">
             </mat-form-field>
         </form>
+        <label for="singleFile">Subir foto:</label>
+        <br>
+        <input id="singleFile" type="file" style="width: 300px;" (change)="selectPhoto($event)"/>
+        <br>
+        <mat-progress-bar mode="determinate" [color]="color" [value]="progress"></mat-progress-bar>
+        <br>
         <button mat-stroked-button (click)="onSave()">Guardar</button>
     </div>
 </mat-dialog-content>

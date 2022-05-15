@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FilterTypePipe } from '../core/pipes/weaponfiltertype';
 import { WeaponEditComponent } from './weapon-edit/weapon-edit.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -43,6 +44,7 @@ import { WeaponEditComponent } from './weapon-edit/weapon-edit.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatProgressBarModule
   ]
 })
 export class WeaponModule { }

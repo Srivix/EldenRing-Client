@@ -31,19 +31,19 @@ export class MiBuildListComponent implements OnInit {
   builds: Build[] = [];
   buildStates: BuildState[] = [];
 
-  filterName: string |null | undefined;
-  filterWeapon1name: string |null | undefined;
-  filterWeapon2name: string |null | undefined;
+  filterName: string |null = null;
+  filterWeapon1name: string |null = null;
+  filterWeapon2name: string |null = null;
   filterStartDate: FormControl = new FormControl;
   filterEndDate: FormControl = new FormControl;
-  filterState: string |null | undefined;
+  filterState: string |null = null;
 
-  name: string |null | undefined;
-  weapon1name: string |null | undefined;
-  weapon2name: string |null | undefined;
+  name: string |null = null;
+  weapon1name: string |null = null;
+  weapon2name: string |null = null;
   startDate: FormControl = new FormControl(null);
   endDate: FormControl = new FormControl(null);
-  state: string |null | undefined; 
+  state: string |null  = null; 
 
   constructor(
     private snackBar: MatSnackBar,
