@@ -1,9 +1,8 @@
-import { COMPILER_OPTIONS, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BuildListComponent } from './build/build-list/build-list.component';
 import { MiBuildListComponent } from './build/mi-build-list/mi-build-list.component';
 import { CalculatorComponent } from './calculator/calculator/calculator.component';
-import { LoginComponent } from './login/login/login.component';
 import { WeaponListComponent } from './weapon/weapon-list/weapon-list.component';
 
 const routes: Routes = [

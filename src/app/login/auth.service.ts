@@ -46,11 +46,11 @@ export class AuthService {
   login(usuario: User): Observable<any> {
     const urlEndpoint = environment.server+'/oauth/token';
 
-    const credenciales = btoa('eldenringcalculatorclient' + ':' + '12345');
+    const credentials = btoa('eldenringcalculatorclient' + ':' + '12345');
 
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + credenciales
+      'Authorization': 'Basic ' + credentials
     });
 
     let params = new URLSearchParams();
